@@ -12,5 +12,6 @@
  `mkdir -p app/tmp/cache/{models,persistent,views} app/tmp/logs`
  `chown -R www-data:www-data app/tmp`
  `chmod -R 775 app/tmp`
-7. Создать БД из дампа. Вне контейнера выполнить `docker compose exec -T db mysqldump -u root -p utmdb > db_dump.sql`.
-8. В браузере зайти на http://localhost:8070/statistics/utm/list
+7. Создать БД: вне контейнера `docker compose exec -T db sh -c 'mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS utmdb DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"'`.
+8. Выполнить `docker compose exec -T db sh -c 'mysql -u root -p"$MYSQL_ROOT_PASSWORD" utmdb' < db_dump.sql`.
+9. В браузере зайти на http://localhost:8070/statistics/utm/list
